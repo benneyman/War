@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class BattalionType(Enum):
-    Horses = 1,
-    Elephants = 2,
-    ArmouredTanks = 3,
-    SlingGuns = 4
+    HORSES = 1,
+    ELEPHANTS = 2,
+    ARMOUREDTANKS = 3,
+    SLINGGUNS = 4
