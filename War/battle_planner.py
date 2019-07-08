@@ -6,21 +6,23 @@ from math import ceil
 
 
 class BattlePlanner:
+    
     def __init__(self, battalion_processor: BattalionProcessor, our_army: Army):
         self.battalion_processor: BattalionProcessor = battalion_processor
         self.our_army: Army = our_army
-        self.result_army: Army = Army()
+        self.__result_army: Army = Army()
     
     def update_battalion_stats(self, our_battalion: BattalionType, our_strength: int,
                                enemy_battalion: BattalionType, enemy_strength: int,
                                resolvable: int) -> int:
         enemy_strength -= resolvable
         self.our_army.update_battalion_strength(our_battalion, -our_strength)
-        self.result_army.update_battalion_strength(our_battalion, our_strength)
+        self.__result_army.update_battalion_strength(our_battalion, our_strength)
         return enemy_strength
 
     def resolve_battalion(self, enemy_battalion: BattalionType,
                           enemy_strength: int) -> bool:
+        
         remaining_strength: int = self.apply_power_rule(enemy_strength)
         if self.our_army.has_battalion(enemy_battalion):
             remaining_strength = self.resolve_with_similar_battalion(enemy_battalion,
@@ -35,7 +37,7 @@ class BattlePlanner:
                                        enemy_strength: int) -> int:
         our_strength = self.our_army.get_battalion_strength(enemy_battalion)
         resolvable_strength = min(our_strength, enemy_strength)
-        resolved_strength = self.update_battalion_stats(enemy_battalion, our_strength,
+        resolved_strength = self.update_battalion_stats(enemy_battalion, resolvable_strength,
                                                    enemy_battalion, enemy_strength,
                                                    resolvable_strength) 
         return resolved_strength
@@ -61,9 +63,20 @@ class BattlePlanner:
         return enemy_strength
 
     def get_winning_army(self, enemy_army: Army) -> Army:
-        battle_result : bool = True
+        """Returns the minimum required army and a bool 
+        indicating the result of the battle with the returned
+        army
+        True : Returned army will win
+        False : Returned army will lose
+        Arguments:
+            enemy_army {Army} -- [The army to battle against]
+        Returns:
+            Army -- [Minimum required army to defeat enemy_army]
+            battle_result {bool} -- [boolean indicating the result of the battle]
+        """
+        battle_result: bool = True
         for enemy_battalion in enemy_army.get_battalions():
             enemy_strength = enemy_army.get_battalion_strength(enemy_battalion)
             battle_result &= self.resolve_battalion(enemy_battalion, enemy_strength)
-                    
+        return battle_result, self.__result_army
     

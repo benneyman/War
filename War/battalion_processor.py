@@ -3,6 +3,9 @@ from typing import Dict, List, Tuple
 
 
 class BattalionProcessor:
+    """[summary]
+    Class to hold the battalion seniority and substituion battalions
+    """
 
     def __init__(self, multiplier: int = 2, **battalions):
         self.multiplier = multiplier
@@ -18,7 +21,7 @@ class BattalionProcessor:
     def add_battalion_substituation(self, from_battalion_type: BattalionType,
                                     to_battalion_type: BattalionType,
                                     multiplier: int,
-                                    bidirectional: bool = True):
+                                    bidirectional: bool = True) -> None:
         from_sub_btn = self.substitution_graph.get(from_battalion_type, [])
         from_sub_btn.append((to_battalion_type, multiplier))
         self.substitution_graph[from_battalion_type] = from_sub_btn
@@ -28,6 +31,15 @@ class BattalionProcessor:
             self.substitution_graph[to_battalion_type] = to_sub_btn
 
     def get_substitution_battalion(self, battalion_type: BattalionType) -> List[Tuple[BattalionType, float]]:
+        """[summary]
+        Returns the list of Tuple of BattalionType and multipler indicating
+        how much of that battalion is need to make 1 of the input battalion_type
+        Arguments:
+            battalion_type {BattalionType} -- [Input battalion whose substitution order needs to be found]
+        
+        Returns:
+            List[Tuple[BattalionType, float]] -- [substitution order of the input battalion]
+        """
         unordered_sub_btn = self.substitution_graph.get(battalion_type, [])
         return sorted(unordered_sub_btn,
                       key=lambda btn: self.get_battalion_seniority(btn))
