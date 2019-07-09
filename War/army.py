@@ -1,5 +1,6 @@
 from battalion_types import BattalionType
-from typing import Dict, List
+from typing import List
+from collections import defaultdict
 
 
 class Army:
@@ -7,7 +8,7 @@ class Army:
     Army can update, add new battalions and their strength
     """
     def __init__(self, **battalions):
-        self.battalion_strength: Dict[BattalionType, int] = {}
+        self.battalion_strength = defaultdict(int)
         for k, v in battalions.items():
             if BattalionType.is_valid_battalion(k) and isinstance(v, int):
                 self.battalion_strength[BattalionType(k)] = v
@@ -15,7 +16,8 @@ class Army:
     def get_battalion_strength(self, battalion_type: BattalionType) -> int:
         """Returns the strength of the battalion in this army
         Arguments:
-            battalion_type {BattalionType} -- [type of battalion whose strength needs to be found]
+            battalion_type {BattalionType} -- [type of battalion whose 
+            strength needs to be found]
         
         Raises:
             KeyError: [Raises when battalion_type is not present in the army]
@@ -36,10 +38,7 @@ class Army:
             battalion_type {BattalionType} -- [Type of battalion to be added or updated]
             change {int} -- [represents change in the strength of the battalion]
         """
-        if battalion_type not in self.battalion_strength:
-            self.battalion_strength[battalion_type] = change
-        else:
-            self.battalion_strength[battalion_type] += change
+        self.battalion_strength[battalion_type] += change
 
     def get_battalions(self) -> List[BattalionType]:
         return list(self.battalion_strength.keys())

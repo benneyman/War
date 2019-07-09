@@ -22,6 +22,16 @@ class BattalionProcessor:
                                     to_battalion_type: BattalionType,
                                     multiplier: int,
                                     bidirectional: bool = True) -> None:
+        """[summary]
+        
+        Arguments:
+            from_battalion_type {BattalionType} -- [from battalion_type]
+            to_battalion_type {BattalionType} -- [to battalion_type]
+            multiplier {int} -- [amount of from_battalion_type required to 
+            make 1 to_battalion_type]
+            bidirectional {bool} -- [indicates weather the relationship 
+            is bidirectional] (default: {True})
+        """
         from_sub_btn = self.substitution_graph.get(from_battalion_type, [])
         from_sub_btn.append((to_battalion_type, multiplier))
         self.substitution_graph[from_battalion_type] = from_sub_btn
@@ -35,10 +45,12 @@ class BattalionProcessor:
         Returns the list of Tuple of BattalionType and multipler indicating
         how much of that battalion is need to make 1 of the input battalion_type
         Arguments:
-            battalion_type {BattalionType} -- [Input battalion whose substitution order needs to be found]
+            battalion_type {BattalionType} -- [Input battalion whose 
+            substitution order needs to be found]
         
         Returns:
-            List[Tuple[BattalionType, float]] -- [substitution order of the input battalion]
+            List[Tuple[BattalionType, float]] -- [substitution order of the 
+            input battalion]
         """
         unordered_sub_btn = self.substitution_graph.get(battalion_type, [])
         return sorted(unordered_sub_btn,

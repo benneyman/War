@@ -55,8 +55,11 @@ class BattlePlanner:
             actual_strength = self.our_army.get_battalion_strength(substitution_battalion[0])
 
             resolvable_strength = min(required_strength, actual_strength)
-            normalized_resolvable = min(int(ceil(resolvable_strength * (1 / substitution_battalion[1]))), enemy_strength)
-            enemy_strength = self.update_battalion_stats(substitution_battalion[0], resolvable_strength,
+            normalized_resolvable = min(int(ceil(resolvable_strength *
+                                        (1 / substitution_battalion[1]))),
+                                        enemy_strength)
+            enemy_strength = self.update_battalion_stats(substitution_battalion[0],
+                                                         resolvable_strength,
                                                          enemy_battalion, enemy_strength,
                                                          normalized_resolvable)
             
