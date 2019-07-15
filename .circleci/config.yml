@@ -18,7 +18,7 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      
+      - checkout
       # run tests!
       # this example uses Django's built-in test-runner
       # other common Python testing frameworks include pytest and nose
@@ -27,7 +27,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            pytest tests/
+            py -3 -m pytest tests
 
       - store_artifacts:
           path: test-reports
