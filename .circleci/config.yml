@@ -27,7 +27,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            python -3 -m pytest tests
+            python3 -m pytest tests
 
       - store_artifacts:
           path: test-reports
