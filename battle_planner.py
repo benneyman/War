@@ -65,7 +65,7 @@ class BattlePlanner:
             
         return enemy_strength
 
-    def get_winning_army(self, enemy_army: Army) -> Army:
+    def get_winning_army(self, enemy_army: Army):
         """Returns the minimum required army and a bool 
         indicating the result of the battle with the returned
         army
@@ -81,5 +81,6 @@ class BattlePlanner:
         for enemy_battalion in enemy_army.get_battalions():
             enemy_strength = enemy_army.get_battalion_strength(enemy_battalion)
             battle_result &= self.resolve_battalion(enemy_battalion, enemy_strength)
-        return battle_result, self.__result_army
+        required_battalions = self.__result_army.get_all_battalion_with_strength()
+        return battle_result, required_battalions
     

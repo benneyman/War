@@ -46,6 +46,9 @@ class Army:
     def has_battalion(self, battalion_type: BattalionType) -> bool:
         return battalion_type in self.battalion_strength
     
+    def get_all_battalion_with_strength(self):
+        return self.battalion_strength
+
     def __eq__(self, other): 
         if not isinstance(other, Army):
             return False

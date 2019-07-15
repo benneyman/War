@@ -13,24 +13,29 @@ def main():
                                                     BattalionType.HORSES, 2)
     battalion_processor.add_battalion_substituation(BattalionType.ARMOUREDTANKS,
                                                     BattalionType.ELEPHANTS, 2)
-    battalion_processor.add_battalion_substitu0ation(BattalionType.SLINGGUNS,
+    battalion_processor.add_battalion_substituation(BattalionType.SLINGGUNS,
                                                     BattalionType.ARMOUREDTANKS, 2)                                          
     lengaburu_army = Army(horses=100, elephants=50,
                           armoured_tanks=10, sling_guns=5)
 
     
 
-    with open("D:\\GeekTrust\\War\\War\\input.txt", "r") as testcases:
+    with open("input.txt", "r") as testcases:
         for testcase in testcases:
-            input = [x.strip() for x in testcase.split(",")]
-            print(input)
+            input = [int(x.strip()) for x in testcase.split(",")]
             enemy_army = Army(horses=input[0], elephants=input[1],
                               armoured_tanks=input[2], sling_guns=input[3])
-            print(enemy_army)
             planner = BattlePlanner(battalion_processor, deepcopy(lengaburu_army))
             result, army = planner.get_winning_army(enemy_army)
-            print(result, army)
+            display_result(input, result, army)
     
-
+def display_result(input, result, army):
+    print("Input : Falicornia attacks with {0} H, {1} E, {2} AT, {3} SG ".format(input[0], input[1], input[2], input[3]))
+    print("Output : Lebangaru deploys")
+    for k, v in army.items():
+        print("{0} : {1}".format(k.name, v))
+    print("Lebangaru {0}".format("Wins" if result is True else "Loses"))
+    print()
+    
 if __name__ == "__main__":
     main()

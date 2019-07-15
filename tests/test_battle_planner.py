@@ -100,9 +100,10 @@ class Test_BattlePlanner(object):
                                 
         battle_result, winning_army = BattlePlanner(bp, deepcopy(our_army)).get_winning_army(deepcopy(enemy_army))
         assert battle_result == True
-        assert winning_army == Army(horses=100, elephants=50,
-                                    armoured_tanks=10,
-                                    sling_guns=5)
+        assert winning_army == {BattalionType.HORSES: 100,
+                                BattalionType.ELEPHANTS: 50,
+                                BattalionType.ARMOUREDTANKS: 10,
+                                BattalionType.SLINGGUNS: 5}
 
     def test_get_winning_army_2(self):
         horses, elephants, armoured_tanks, sling_guns = 100, 50, 10, 5
@@ -117,7 +118,8 @@ class Test_BattlePlanner(object):
 
         battle_result, winning_army = BattlePlanner(bp, deepcopy(our_army)).get_winning_army(deepcopy(enemy_army))
         assert battle_result == True
-        assert winning_army == Army(horses=100, elephants=50)
+        assert winning_army == {BattalionType.HORSES: 100,
+                                BattalionType.ELEPHANTS: 50}
     
     def test_get_winning_army_3(self):
         horses, elephants, armoured_tanks, sling_guns = 100, 50, 10, 5
@@ -132,7 +134,8 @@ class Test_BattlePlanner(object):
 
         battle_result, winning_army = BattlePlanner(bp, deepcopy(our_army)).get_winning_army(deepcopy(enemy_army))
         assert battle_result == False
-        assert winning_army == Army(horses=100, elephants=50)
+        assert winning_army == {BattalionType.HORSES: 100,
+                                BattalionType.ELEPHANTS: 50}
     
     def test_get_winning_army_4(self):
         horses, elephants, armoured_tanks, sling_guns = 100, 50, 10, 5
@@ -150,8 +153,10 @@ class Test_BattlePlanner(object):
 
         battle_result, winning_army = BattlePlanner(bp, deepcopy(our_army)).get_winning_army(deepcopy(enemy_army))
         assert battle_result == True
-        assert winning_army == Army(horses=52, elephants=50,
-                                    armoured_tanks=10, sling_guns=3)
+        assert winning_army == {BattalionType.HORSES: 52,
+                                BattalionType.ELEPHANTS: 50,
+                                BattalionType.ARMOUREDTANKS: 10,
+                                BattalionType.SLINGGUNS: 3}
 
     def test_get_winning_army_5(self):
         horses, elephants, armoured_tanks, sling_guns = 100, 50, 10, 5
@@ -169,8 +174,10 @@ class Test_BattlePlanner(object):
 
         battle_result, winning_army = BattlePlanner(bp, deepcopy(our_army)).get_winning_army(deepcopy(enemy_army))
         assert battle_result == True
-        assert winning_army == Army(horses=75, elephants=50,
-                                    armoured_tanks=10, sling_guns=5)
+        assert winning_army == {BattalionType.HORSES: 75,
+                                BattalionType.ELEPHANTS: 50,
+                                BattalionType.ARMOUREDTANKS: 10,
+                                BattalionType.SLINGGUNS: 5}
 
     def test_get_winning_army_6(self):
         horses, elephants, armoured_tanks, sling_guns = 100, 50, 10, 5
@@ -188,6 +195,8 @@ class Test_BattlePlanner(object):
 
         battle_result, winning_army = BattlePlanner(bp, deepcopy(our_army)).get_winning_army(deepcopy(enemy_army))
         assert battle_result == False
-        assert winning_army == Army(horses=100, elephants=38,
-                                    armoured_tanks=10, sling_guns=5)
+        assert winning_army == {BattalionType.HORSES: 100,
+                                BattalionType.ELEPHANTS: 38,
+                                BattalionType.ARMOUREDTANKS: 10,
+                                BattalionType.SLINGGUNS: 5}
                                     
