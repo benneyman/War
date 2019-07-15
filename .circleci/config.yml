@@ -33,7 +33,8 @@ jobs:
       - run:
           name: run tests
           command: |
-            pipenv run python pytest tests/
+            . venv/bin/activate
+            python3 pytest tests/
 
       - store_artifacts:
           path: test-reports
