@@ -8,4 +8,4 @@ The solution requires Python 3 to run
 
 The code is present in https://github.com/benneyman/War
 
-Executing `run-windows.bat` or `run-linux.sh` executes the `main.py`
+Executing `run-windows.bat` or `run-linux.sh` installs the dependencies, runs the tests and executes `main.py`
